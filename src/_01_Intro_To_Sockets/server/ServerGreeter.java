@@ -32,26 +32,41 @@ public class ServerGreeter extends Thread {
 				//10. Let the user know that the client has connected.
 				System.out.println("Client connected.");
 				//11. Create a DataInputStream object. When initializing it, use the Socket object you created in step 9 to call the getInputStream() method.
-				DataInputStream in = (DataInputStream) socket.getInputStream();
+				DataInputStream in = new DataInputStream(socket.getInputStream());
 				//12. Print the message from the DataInputStream object using the readUTF() method
 				System.out.println("MESSAGE: "+in.readUTF());
 				//13. Create a DataOutputStream object. When initializing it, use the Server object you created in step 9 to call the getOutputStream() method.
-				DataOutputStream out = (DataOutputStream) socket.getOutputStream();
+				DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 				//14. Use the DataOutputStream object to send a message to the client using the writeUTF(String message) method.
 				
 				//15. Close the client server
 			} catch (SocketTimeoutException e) {
-			//6. If the program catches a SockeTimeoutException, let the user know about it and set loop's boolean variable to false.
-
+				//6. If the program catches a SocketTimeoutException, let the user know about it and set loop's boolean variable to false.
+				System.out.println("OH GOD A SocketTimeoutException! AAAA GET IT! *stomp*");
+				System.out.println("That was a close one! They're poisonous, you know. And they crave flesh.");
+				trueDat = false;
 			} catch (IOException e1) {
-			//7. If the program catches a IOException, let the user know about it and set the loop's boolean variable to false.
-
+				//7. If the program catches a IOException, let the user know about it and set the loop's boolean variable to false.
+				System.out.println("> A wild IOEXCEPTION appeared!");
+				System.out.println("fight ioexception");
+				System.out.println("> You punch the IOEXCEPTION! It STINGS your hand!");
+				System.out.println("> You have died. You scored 0 out of a possible 100 points.");
+				System.out.println("play again");
 			}
 		}
 	}
 
 	public static void main(String[] args) {
 		//16. In a new thread, create an object of the ServerGreeter class and start the thread. Don't forget the try-catch.
-		
+		try {
+			ServerGreeter sg = new ServerGreeter();
+			sg.run();
+		} catch (IOException e) {
+			System.out.println("> A wild IOEXCEPTION appeared!");
+			System.out.println("fight ioexception");
+			System.out.println("> You punch the IOEXCEPTION! It STINGS your hand!");
+			System.out.println("> You have died. You scored 0 out of a possible 100 points.");
+			System.out.println("play again");
+		}
 	}
 }
